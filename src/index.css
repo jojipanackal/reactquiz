@@ -1,0 +1,373 @@
+:root {
+  --color-darkest: #000000;
+  --color-dark: #333333;
+  --color-medium: #777777;
+  --color-light: #ffffff;
+
+  --color-theme: #ffffff;
+  --color-accent: #cccccc;
+
+  --color-correct: #4caf50;
+  --color-wrong: #f44336;
+  --color-red-back: rgba(244, 67, 54, 0.1);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-light);
+  background-color: var(--color-darkest);
+  padding: 3.2rem;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  width: 50rem;
+}
+
+.app-header {
+  width: 100%;
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 2rem;
+  background-color: var(--color-dark);
+  border-radius: 100px;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-size: 5.6rem;
+  color: var(--color-darkest);
+  background-color: var(--color-theme);
+  text-align: center;
+  padding: 2rem;
+}
+
+h2 {
+  font-size: 3.6rem;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 4rem;
+}
+
+h4 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+}
+
+.start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress {
+  margin-bottom: 4rem;
+  display: grid;
+  justify-content: space-between;
+  gap: 1.2rem;
+  grid-template-columns: auto auto;
+  font-size: 1.8rem;
+  color: var(--color-medium);
+}
+
+progress {
+  width: 100%;
+  height: 12px;
+  grid-column: 1 / -1;
+}
+
+.btn {
+  display: block;
+  font-family: inherit;
+  color: var(--color-darkest);
+  font-size: 2rem;
+  border: 2px solid var(--color-dark);
+  background-color: var(--color-light);
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: 0.3s;
+}
+
+.btn:not([disabled]):hover {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+.btn[disabled]:hover {
+  cursor: not-allowed;
+}
+
+.button-container {
+  display: flex;
+  gap: 1.6rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-ui {
+  font-size: 1.6rem;
+  padding: 1rem 2rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 3.2rem;
+}
+
+.btn-option {
+  width: 100%;
+  text-align: left;
+}
+
+.btn-option.correct {
+  background-color: var(--color-correct);
+  border: 2px solid var(--color-correct);
+  color: var(--color-light);
+}
+.btn-option.wrong {
+  background-color: var(--color-wrong);
+  border: 2px solid var(--color-wrong);
+  color: var(--color-light);
+}
+
+.result {
+  background-color: var(--color-theme);
+  color: var(--color-darkest);
+  border-radius: 100px;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.6rem;
+}
+
+.result span {
+  font-size: 2.2rem;
+  margin-right: 4px;
+}
+
+.highscore {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 4.8rem;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  gap: 1.6rem;
+
+  color: var(--color-medium);
+  font-size: 1.4rem;
+}
+
+.login-container {
+  width: 50rem;
+  margin: 0 auto;
+  padding: 4rem;
+  background-color: var(--color-dark);
+  border-radius: 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.form-group label {
+  font-size: 1.8rem;
+  color: var(--color-light);
+}
+
+.form-group input {
+  font-size: 1.6rem;
+  padding: 1rem;
+  border: 2px solid var(--color-medium);
+  background-color: var(--color-darkest);
+  color: var(--color-light);
+  border-radius: 100px;
+}
+
+.btn-login {
+  margin-top: 2rem;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.6rem;
+  color: var(--color-medium);
+}
+
+.register-link a {
+  color: var(--color-theme);
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.message {
+  font-size: 1.6rem;
+  margin-top: 1.6rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  color: var(--color-wrong);
+  background-color: var(--color-red-back);
+  border: 1px solid var(--color-wrong);
+}
+
+.admin-page {
+  width: 50rem;
+  margin: 0 auto;
+  padding: 4rem;
+  background-color: var(--color-dark);
+  border-radius: 10px;
+}
+
+.admin-page h2 {
+  font-size: 3.6rem;
+  color: var(--color-theme);
+  text-align: center;
+  margin-bottom: 3.2rem;
+}
+
+.admin-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.btn-admin {
+  font-size: 1.6rem;
+  padding: 1rem 2rem;
+  border: 2px solid var(--color-dark);
+  background-color: var(--color-light);
+  color: var(--color-darkest);
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.btn-admin:hover {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+.btn-logout {
+  margin-top: 2rem;
+  background-color: var(--color-wrong);
+  border: 2px solid var(--color-wrong);
+  color: var(--color-light);
+}
+
+.btn-logout:hover {
+  background-color: var(--color-wrong);
+  color: var(--color-light);
+}
+
+/* Popup overlay styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Popup content styles */
+.popup-content {
+  background-color: var(--color-dark);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  color: var(--color-light);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content h2 {
+  margin-bottom: 1.6rem;
+  font-size: 2.4rem;
+}
+
+.popup-content .form-group {
+  margin-bottom: 1.6rem;
+}
+
+.popup-content .form-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-size: 1.6rem;
+}
+
+.popup-content .form-group input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--color-medium);
+  background-color: var(--color-darkest);
+  color: var(--color-light);
+  border-radius: 8px;
+  font-size: 1.6rem;
+}
+
+.popup-content .btn {
+  margin-top: 1.6rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+}
+
+.btn-close {
+  background-color: var(--color-dark);
+  border: 2px solid var(--color-medium);
+  color: var(--color-light);
+}
