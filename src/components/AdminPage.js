@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { useQuiz } from "../contexts/QuizContext";
 
 function AdminPage() {
-  const { addQuestion, questions } = useQuiz();
+  const { addQuestion } = useQuiz();
 
   const [activeSection, setActiveSection] = useState(null);
   const [questionInput, setQuestionInput] = useState("");
-  const [deleteQuestionId, setDeleteQuestionId] = useState("");
-  const [deleteUserId, setDeleteUserId] = useState("");
-  // const [users, setUsers] = useState({});
+  const placeholder_json = {
+    question: "How does data flow naturally in React apps?",
+    choices: [
+      "From parents to children",
+      "From children to parents",
+      "Both ways",
+      "The developers decides",
+    ],
+    correctOption: 0,
+    points: 10,
+  };
 
   const handleCreateQuestion = () => {
     try {
@@ -42,50 +50,12 @@ function AdminPage() {
               className="question-input"
               value={questionInput}
               onChange={(e) => setQuestionInput(e.target.value)}
-              placeholder="Enter question JSON"
+              placeholder={JSON.stringify(placeholder_json)}
               rows="10"
             />
             <button className="btn btn-submit" onClick={handleCreateQuestion}>
               Submit
             </button>
-          </div>
-        )}
-        {activeSection === "deleteQuestion" && (
-          <div className="section">
-            <h3>Delete Question</h3>
-            <input
-              type="text"
-              className="id-input"
-              value={deleteQuestionId}
-              onChange={(e) => setDeleteQuestionId(e.target.value)}
-              placeholder="Enter question ID"
-            />
-            <button className="btn btn-delete">Delete</button>
-          </div>
-        )}
-        {activeSection === "deleteUser" && (
-          <div className="section">
-            <h3>Delete User</h3>
-            <input
-              type="text"
-              className="id-input"
-              value={deleteUserId}
-              onChange={(e) => setDeleteUserId(e.target.value)}
-              placeholder="Enter user ID"
-            />
-            <button className="btn btn-delete">Delete</button>
-          </div>
-        )}
-        {activeSection === "readUsers" && (
-          <div className="section">
-            <h3>Users</h3>
-            <p>User list will be displayed here</p>
-          </div>
-        )}
-        {activeSection === "readQuestions" && (
-          <div className="section">
-            <h3>Questions</h3>
-            <p>{questions}</p>
           </div>
         )}
       </div>
