@@ -1,59 +1,95 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQuiz } from '../contexts/QuizContext';
-import CreateQuestionPopup from './CreateQuestionPopUp';
+import React, { useState } from "react";
+import { useQuiz } from "../contexts/QuizContext";
 
 function AdminPage() {
-  const navigate = useNavigate();
-  const { logout } = useQuiz();
+  const { addQuestion, questions } = useQuiz();
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
+  const [questionInput, setQuestionInput] = useState("");
+  const [deleteQuestionId, setDeleteQuestionId] = useState("");
+  const [deleteUserId, setDeleteUserId] = useState("");
+  // const [users, setUsers] = useState({});
 
   const handleCreateQuestion = () => {
-    setIsPopupOpen(true);
-  };
-
-  const handleDeleteQuestion = () => {
-    navigate('/admin/delete-question');
-  };
-
-  const handleDeleteUser = () => {
-    navigate('/admin/delete-user');
-  };
-
-  const handleReadUsers = () => {
-    navigate('/admin/read-users');
-  };
-
-  const handleLogout = () => {
-    logout(); // Call logout function to clear user data
-    navigate('/login'); // Redirect to login page
+    try {
+      const parsedData = JSON.parse(questionInput);
+      addQuestion(parsedData);
+      alert("question created successfully");
+      setActiveSection(null);
+    } catch (error) {
+      console.log("Invalid JSON Format" + error.message);
+    }
   };
 
   return (
     <main className="admin-page">
-      <h2>Admin Dashboard</h2>
+      <h2 className="admin-title">Admin Dashboard</h2>
       <div className="admin-buttons">
-        <button className="btn btn-admin" onClick={handleCreateQuestion}>
+        <button
+          className={`btn btn-admin ${
+            activeSection === "createQuestion" ? "active" : ""
+          }`}
+          onClick={() => setActiveSection("createQuestion")}
+        >
           Create Question
         </button>
-        <button className="btn btn-admin" onClick={handleDeleteQuestion}>
-          Delete Question
-        </button>
-        <button className="btn btn-admin" onClick={handleDeleteUser}>
-          Delete User
-        </button>
-        <button className="btn btn-admin" onClick={handleReadUsers}>
-          Read Users
-        </button>
-        <button className="btn btn-admin btn-logout" onClick={handleLogout}>
-          Logout
-        </button>
       </div>
-      <CreateQuestionPopup
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-      />
+
+      <div className="admin-content">
+        {activeSection === "createQuestion" && (
+          <div className="section">
+            <h3>Create Question</h3>
+            <textarea
+              className="question-input"
+              value={questionInput}
+              onChange={(e) => setQuestionInput(e.target.value)}
+              placeholder="Enter question JSON"
+              rows="10"
+            />
+            <button className="btn btn-submit" onClick={handleCreateQuestion}>
+              Submit
+            </button>
+          </div>
+        )}
+        {activeSection === "deleteQuestion" && (
+          <div className="section">
+            <h3>Delete Question</h3>
+            <input
+              type="text"
+              className="id-input"
+              value={deleteQuestionId}
+              onChange={(e) => setDeleteQuestionId(e.target.value)}
+              placeholder="Enter question ID"
+            />
+            <button className="btn btn-delete">Delete</button>
+          </div>
+        )}
+        {activeSection === "deleteUser" && (
+          <div className="section">
+            <h3>Delete User</h3>
+            <input
+              type="text"
+              className="id-input"
+              value={deleteUserId}
+              onChange={(e) => setDeleteUserId(e.target.value)}
+              placeholder="Enter user ID"
+            />
+            <button className="btn btn-delete">Delete</button>
+          </div>
+        )}
+        {activeSection === "readUsers" && (
+          <div className="section">
+            <h3>Users</h3>
+            <p>User list will be displayed here</p>
+          </div>
+        )}
+        {activeSection === "readQuestions" && (
+          <div className="section">
+            <h3>Questions</h3>
+            <p>{questions}</p>
+          </div>
+        )}
+      </div>
     </main>
   );
 }

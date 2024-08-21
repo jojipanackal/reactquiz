@@ -172,6 +172,13 @@ function QuizProvider({ children }) {
     }
   };
 
+  const readQuestions = async () => {
+    fetch("https://quizback-joji.vercel.app/api/v1/quiz/readQuestions")
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .catch((err) => dispatch({ type: "dataFailed" }));
+  };
+
   const logout = async (username, highscore) => {
     try {
       const response = await fetch(
@@ -215,6 +222,7 @@ function QuizProvider({ children }) {
         dispatch,
         signup,
         addQuestion,
+        readQuestions,
       }}
     >
       {children}
