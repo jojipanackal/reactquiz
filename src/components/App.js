@@ -1,22 +1,17 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from 'react-router-dom';
-import Header from './Header';
-import Login from './Login';
-import QuizContent from './QuizContent';
-import Signup from './Signup';
-import { useQuiz } from '../contexts/QuizContext';
-import AdminPage from './AdminPage';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Header from "./Header";
+import Login from "./Login";
+import QuizContent from "./QuizContent";
+import Signup from "./Signup";
+import { useQuiz } from "../contexts/QuizContext";
+import AdminPage from "./AdminPage";
 
 export default function App() {
   const { isLoggedIn, username } = useQuiz();
   console.log(username);
 
   return (
-    <Router>
+    <BrowserRouter basename="/reactquiz">
       <div className="app">
         <Header />
         <Routes>
@@ -36,6 +31,6 @@ export default function App() {
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
