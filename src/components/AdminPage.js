@@ -23,7 +23,6 @@ function AdminPage() {
 
   return (
     <main className="admin-page">
-      <h2 className="admin-title">Admin Dashboard</h2>
       <div className="admin-buttons">
         <button
           className={`btn btn-admin ${

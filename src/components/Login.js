@@ -45,7 +45,10 @@ function Login() {
           </button>
         </form>
         <p className="register-link">
-          Don't have an account? <Link to="/signup ">Register here</Link>
+          Don't have an account? <Link to="/signup ">Register Here</Link>
+        </p>
+        <p className="register-link">
+          Create Question? <Link to="/admin ">Go to Admin Page</Link>
         </p>
       </div>
     </main>
