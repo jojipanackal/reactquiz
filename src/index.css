@@ -219,7 +219,7 @@ progress {
 
 .form-group label {
   font-size: 1.8rem;
-  color: var(--color-light);
+  color: var(--color-dark);
 }
 
 .form-group input {

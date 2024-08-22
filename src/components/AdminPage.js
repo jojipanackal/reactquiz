@@ -5,32 +5,50 @@ function AdminPage() {
   const { addQuestion } = useQuiz();
 
   const [activeSection, setActiveSection] = useState(null);
-  const [questionInput, setQuestionInput] = useState("");
-  const placeholder_json = {
-    question: "How does data flow naturally in React apps?",
-    choices: [
-      "From parents to children",
-      "From children to parents",
-      "Both ways",
-      "The developers decides",
-    ],
+  const [questionData, setQuestionData] = useState({
+    question: "",
+    choices: ["", "", "", ""],
     correctOption: 0,
     points: 10,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setQuestionData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleCreateQuestion = () => {
+  const handleChoiceChange = (index, value) => {
+    setQuestionData((prevData) => ({
+      ...prevData,
+      choices: prevData.choices.map((choice, i) =>
+        i === index ? value : choice
+      ),
+    }));
+  };
+
+  const handleCreateQuestion = (e) => {
+    e.preventDefault();
     try {
-      const parsedData = JSON.parse(questionInput);
-      addQuestion(parsedData);
-      alert("question created successfully");
+      addQuestion(questionData);
+      alert("Question created successfully");
       setActiveSection(null);
+      setQuestionData({
+        question: "",
+        choices: ["", "", "", ""],
+        correctOption: 0,
+        points: 10,
+      });
     } catch (error) {
-      console.log("Invalid JSON Format" + error.message);
+      console.log("Error creating question: " + error.message);
     }
   };
 
   return (
     <main className="admin-page">
+      <h2 className="admin-title">Admin Dashboard</h2>
       <div className="admin-buttons">
         <button
           className={`btn btn-admin ${
@@ -46,16 +64,63 @@ function AdminPage() {
         {activeSection === "createQuestion" && (
           <div className="section">
             <h3>Create Question</h3>
-            <textarea
-              className="question-input"
-              value={questionInput}
-              onChange={(e) => setQuestionInput(e.target.value)}
-              placeholder={JSON.stringify(placeholder_json)}
-              rows="10"
-            />
-            <button className="btn btn-submit" onClick={handleCreateQuestion}>
-              Submit
-            </button>
+            <form onSubmit={handleCreateQuestion}>
+              <div className="form-group">
+                <label htmlFor="question">Question:</label>
+                <input
+                  type="text"
+                  id="question"
+                  name="question"
+                  value={questionData.question}
+                  onChange={handleInputChange}
+                  required
+                  className="question-input"
+                />
+              </div>
+              {questionData.choices.map((choice, index) => (
+                <div key={index} className="form-group">
+                  <label htmlFor={`choice${index}`}>Choice {index + 1}:</label>
+                  <input
+                    type="text"
+                    id={`choice${index}`}
+                    value={choice}
+                    onChange={(e) => handleChoiceChange(index, e.target.value)}
+                    required
+                    className="question-input"
+                  />
+                </div>
+              ))}
+              <div className="form-group">
+                <label htmlFor="correctOption">Correct Option (0-3):</label>
+                <input
+                  type="number"
+                  id="correctOption"
+                  name="correctOption"
+                  min="0"
+                  max="3"
+                  value={questionData.correctOption}
+                  onChange={handleInputChange}
+                  required
+                  className="question-input"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="points">Points:</label>
+                <input
+                  type="number"
+                  id="points"
+                  name="points"
+                  min="1"
+                  value={questionData.points}
+                  onChange={handleInputChange}
+                  required
+                  className="question-input"
+                />
+              </div>
+              <button type="submit" className="btn btn-submit">
+                Submit
+              </button>
+            </form>
           </div>
         )}
       </div>
